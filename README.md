@@ -115,5 +115,13 @@ re-running.
 
 ## License
 
-CC-BY-4.0 — see [`LICENSE`](LICENSE). Free to share and adapt with
-attribution.
+The paper itself is **CC-BY-4.0** — see [`LICENSE`](LICENSE). Free to
+share and adapt with attribution.
+
+The broader research programme this repository sits inside is released
+to the commons under the **Triadic Closure License (TCL) v1.3** — see
+[`TCL.txt`](TCL.txt) (GPG-signed detached signature at
+[`TCL.txt.asc`](TCL.txt.asc)). The TCL is the commons-substrate
+license; it governs derived works that extend the programme rather
+than just cite the paper. Canonical TCL URL:
+<https://github.com/IridiumSoftware/possibilistic-security>.

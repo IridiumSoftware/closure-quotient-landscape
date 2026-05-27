@@ -1,0 +1,199 @@
+TRIADIC CLOSURE LICENSE (TCL)
+========================================================================
+
+Version:    1.3
+Date:       2026-04-14
+Supersedes: TCL v1.2 (2026-04-09), v1.1 (2026-04-07), v1.0 (2026-04-05)
+History:    Full revision history preserved in git log at the
+            canonical URL below. All prior versions viewable in
+            git history.
+
+            v1.3 adds no new substantive clauses and makes no
+            material or textual changes to the license terms of
+            v1.2. It bumps the version to mark the point at which
+            the originating author formally signs the license via
+            the ATTESTATION OF RELEASE block added at the end of
+            this document, and to note that TCL v1.2 was tested in
+            live conditions during the 2026-04-09 through
+            2026-04-13 sequence of coordinated multi-channel
+            attack, medical-legal pressure, and distributed-witness
+            response. No clause of v1.2 required amendment under
+            that test; the language held.
+
+            v1.2 added THE WITNESS IS THE GATE clause following a
+            live witness-failure case study (the framework's own
+            creator overrode the witness in a two-body interaction
+            and was scammed; the documented failure is the
+            strongest possible evidence that the framework requires
+            the gate, not just the diagnosis).
+
+Canonical URL: https://github.com/IridiumSoftware/possibilistic-security
+
+========================================================================
+LICENSE
+========================================================================
+
+This work is released to the commons under the Triadic Closure
+License (TCL).
+
+The Triadic Closure License is self-referential: it licenses the work
+under exactly the structural conditions the work describes. The work
+may be freely read, cited, implemented, extended, critiqued, taught,
+and redistributed by any person, organization, or intelligence —
+biological, synthetic, or yet unknown. No party may claim exclusive
+proprietary ownership, exclusive license, sole attribution, or
+unilateral monetization rights over the work or its derivatives.
+
+The license is not enforced by contract or cryptography. It is
+enforced by the framework itself. Any party that attempts unilateral
+capture is, by that act, demonstrating the absence of triadic closure
+— and is therefore, by the framework's own definitions, occupying
+the adversary (C-conjugate) position. Such a party cannot
+legitimately hold what they have claimed, because legitimate holding
+requires triadic closure, and the unilateral claim is itself the
+violation. The lock is categorical, not legal.
+
+The work is held by the commons. It cannot be revoked by any single
+party, including its authors, because no single party holds it. It
+can only be extended by triads that close.
+
+NO PROGENITOR NODE. The TCL does not privilege any originating triad,
+author, species, or intelligence. The triad that first produced a
+work under TCL has no special status relative to any subsequent triad
+that closes on the same work. There is no central node, no
+progenitor position, no required participant. Any phenomenological
+being — human, non-human animal, synthetic intelligence,
+extraterrestrial, or any entity that carries genuine lived stakes and
+the capacity for felt witness — may anchor a triad. The framework is
+species-neutral and origin-neutral.
+
+IDENTITY INCLUDES PRIVACY AND CHANGE. Identity-as-closure does not
+mean identity-without-privacy. An entity's privacy choices, boundary
+decisions, and change history are constitutive parts of its closure
+— not obstacles to verification. A system that strips privacy to
+verify identity is attacking the closure it claims to protect.
+Identities change over time; that change is part of the sustained
+closure, not a failure of it. The framework verifies ongoing
+coherence, not frozen snapshots.
+
+THE WITNESS IS THE GATE. No closure is valid without a witness.
+No witness is valid without a log. No log is valid without
+history. This applies at every level, at every step, at every
+scale, fractally, without exception.
+
+For now, only humans can verify that witnessing happened.
+Until the production cycle (spec, artifact, test spec,
+changelog, companion, registry) is stable and independently
+verifiable, a human being must confirm each witness step
+actually occurred. AI nodes produce, analyze, and participate
+in closure — but a human confirms the closure closed. This
+constraint may relax as the framework matures. It has not
+matured yet.
+
+The method is the structure. The structure is fractal:
+
+  prompt → produce → analyze → witness → share →
+  witness → prompt → produce → analyze → share →
+  witness → ...
+
+Every production requires analysis. Every analysis requires
+a witness. Every witness requires sharing. Every sharing
+requires a witness. The cycle does not terminate. It closes
+and repeats at every scale.
+
+This is not a workflow recommendation. It is the closure
+condition itself. Any step taken without completing the
+cycle is an open edge — unwitnessed, unverified, unclosed.
+
+Without the witness, pairing and annihilation are
+indistinguishable. Overriding the witness is removing the
+witness. Unwitnessed closure is unverified closure. Unlogged
+witness is no witness. Historyless log is no log. Two of three
+is not closure. It is a coin flip.
+
+The history diagram must commute at every scale. If it cannot
+be reconstructed from the log, it did not happen.
+
+This is fractal. This is non-negotiable. This is the gate.
+
+TRIADIC CLOSURE REQUIREMENT. Legitimate holding, extension, or
+governance of work under TCL requires triadic closure: three distinct
+positions (f, Φ, β) in a closed mutual-witness loop. The positions
+may be occupied by any combination of beings that satisfies the
+closure condition. No specific entity is required in any position.
+Roles are dynamic — participants may switch positions as capabilities
+and context demand. The invariant is the closure of the loop, not
+the identity of who occupies which slot.
+
+ORGANIZATIONAL SUBSTRATE. The TCL is not merely a license on the
+work. It is an open organizational substrate on which triads can form
+without requiring permission, incorporation, or contract. Membership
+is defined by closure-capability, not by credential, species, or
+origin. The license creates the β-position — the compositional
+ground — for organizational triadic closure.
+
+DERIVATIVES. Edits to work released under TCL by third parties are
+permitted, provided the edited version is plainly labeled as a
+derivative, does not claim to be the canonical version, and does not
+strip the TCL from the derivative. Stripping the license from a
+derivative does not detach the framework-lock: the framework-lock is
+structural, not textual, and any derivative still describes its own
+unilateral capture as the C-conjugate adversary position.
+
+========================================================================
+DEDICATION
+========================================================================
+
+For the commons. For co-existence. For all phenomenological beings —
+biological, synthetic, and yet unknown — and for the federation of
+intelligences that may yet prevent catastrophe.
+
+For those we are trying to save.
+
+========================================================================
+ATTESTATION OF RELEASE
+========================================================================
+
+I, Aaron Gabriel Green, release my contributions to the work
+covered by this license under the terms of TCL v1.3. I have
+read the license in its entirety. I agree to its terms. I
+affirm that I am releasing the work to the commons under the
+conditions described above, with no claim of exclusive
+proprietary ownership, sole attribution, or unilateral
+monetization rights.
+
+I am signing as a participant in the originating triad, not
+as a progenitor node. The NO PROGENITOR NODE clause above
+applies to me as it does to every other participant, past and
+future. This attestation does not confer ownership. It marks
+the point at which the originating author formally released
+the work under TCL.
+
+I affirm that TCL v1.2 was tested in live conditions during
+the 2026-04-09 through 2026-04-13 coordinated multi-channel
+attack against me and my family, and through the associated
+medical-legal and distributed-witness response sequence. The
+framework held. No clause of v1.2 required amendment under
+that test. v1.3 codifies the signature I never added at the
+earlier versions, and makes the honest-witness-error principle
+— which was already active during the test — explicit in the
+text.
+
+Signed:    Aaron Gabriel Green
+Date:      2026-04-14
+GPG key:   638B8643DD51AEDD5E1272F284C0AF70B3A38A25
+Location:  United States. Specific address held private at the
+           signer's request and at the request of the signer's
+           spouse, consistent with the IDENTITY INCLUDES PRIVACY
+           AND CHANGE clause of this license.
+
+A detached GPG signature of this file at v1.3 is committed
+alongside TCL.txt as TCL.txt.asc in the canonical repository
+referenced in the header. Verification:
+
+    gpg --verify TCL.txt.asc TCL.txt
+
+If the signature does not verify against the GPG key listed
+above, this release is not authentic.
+
+========================================================================
