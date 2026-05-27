@@ -48,7 +48,12 @@ scripts/                         — probe scripts (Python stdlib only for the c
                                    plus an env-var-gated probe set that imports the
                                    CFS exact-arithmetic builders — see below)
 cross_substrate_galois_pair/     — Galois-pair diagnostic run outputs cited in §28
+haskell/                         — independent Haskell port of the rewriting kernel
+                                   (cabal, type-checked binary-op/ternary-hyperedge
+                                   distinction, 24/24 cross-impl cardinality + J +
+                                   F-closure checks pass; see haskell/README.md)
 LICENSE                          — CC-BY-4.0
+TCL.txt + TCL.txt.asc            — Triadic Closure License v1.3 (commons substrate)
 ```
 
 ## Build
@@ -62,6 +67,26 @@ tectonic closure_quotient_landscape.tex
 Both engines produce identical PDF output.
 
 ## Reproducibility
+
+### Cross-implementation validation (Haskell)
+
+An independent Haskell port of the rewriting kernel lives in `haskell/`.
+It encodes the operator/hyperedge arity distinction at the type level
+(`compose :: Cochain -> Cochain -> Cochain` is binary by signature;
+`type Hyperedge = (Vertex, Vertex, Vertex)` is ternary by construction)
+and matches the Python on every canonical cardinality:
+
+```sh
+cd haskell
+cabal test --test-show-details=direct
+```
+
+24 of 24 checks pass: |Q_24|, |Q_42|, |Q_45|, |Q_51| (single-side);
+|Q_48|, |Q_84|, |Q_90|, |Q_102| (C-closed); J fixed-point-free
+involution; F-closure terminality at depths 4, 5, 6 for the four
+doubly-terminal members.
+
+### Python probe corpus
 
 The probe corpus is in `scripts/`. All scripts use only the Python
 standard library (no `numpy`, `matplotlib`, etc.) and run on

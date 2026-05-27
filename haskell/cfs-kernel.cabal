@@ -1,0 +1,49 @@
+cabal-version:      3.0
+name:               cfs-kernel
+version:            0.1.0.0
+synopsis:           CFS closure-quotient rewriting kernel (Haskell reference port).
+description:
+    Type-level encoding of the Closure-Forces-Structure rewriting kernel:
+    a binary conjugated-cross-product operator on Gaussian-integer 3-vectors
+    embedded inside a ternary-hyperedge multiway rewriting graph. Independent
+    re-implementation of the Python q102_build_exact_v1 reference; the test
+    suite confirms cardinality agreement on the canonical family (Q24, Q48,
+    Q51, Q84, Q90, Q102, Q181) plus J fixed-point-free involution and
+    F-closure terminality on Q48, Q90, Q102.
+license:            BSD-3-Clause
+author:             Aaron Green
+maintainer:         aaron.green@hey.com
+build-type:         Simple
+
+library
+    default-language: Haskell2010
+    hs-source-dirs:   src
+    exposed-modules:
+        CFS.Cochain
+        CFS.Multiway
+        CFS.Topologies
+    build-depends:
+        base        >= 4.14 && < 5,
+        containers  >= 0.6  && < 0.8
+    ghc-options:
+        -Wall
+        -Wcompat
+        -Widentities
+        -Wincomplete-record-updates
+        -Wincomplete-uni-patterns
+        -Wpartial-fields
+        -Wredundant-constraints
+
+test-suite cfs-kernel-test
+    default-language: Haskell2010
+    type:             exitcode-stdio-1.0
+    hs-source-dirs:   test
+    main-is:          Spec.hs
+    build-depends:
+        base        >= 4.14 && < 5,
+        containers  >= 0.6  && < 0.8,
+        cfs-kernel
+    ghc-options:
+        -Wall
+        -threaded
+        -rtsopts
