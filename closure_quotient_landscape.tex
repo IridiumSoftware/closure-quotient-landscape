@@ -29,6 +29,7 @@
 \usepackage{float}
 \usepackage{xcolor}
 \usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning}
 
 % Relaxes LaTeX's line-breaking strictness for paragraphs containing
 % long unhyphenable tokens (e.g. \texttt{} script names). Trade-off:
@@ -533,6 +534,25 @@ that surrounds the operator in \S\ref{sec:functional-roles} attaches to
 fixed-point and doubling properties of the gauge quotient $\Qn$; those
 properties depend on the hyperedge structure, which is genuinely
 ternary, not on the operator's argument count.
+
+\begin{figure}[H]
+\centering
+\input{figures/binary_ternary_layered.tex}
+\caption{Two complementary views of the same 4-vertex, 3-hyperedge
+ternary hypergraph. (a) \emph{Graph view}: each ternary hyperedge is
+rendered as three spokes meeting at a centroid; the rendering is
+symmetric in the three slots, which matches how the rewriting graph's
+gauge quotient $\Qn$ sees the hyperedge. (b) \emph{Computational view}:
+the same hyperedges drawn with explicit slot semantics --- solid lines
+to the two operator-input slots, dashed arrow to the third (output)
+slot. The arrow encodes which two cochains feed
+$\mathrm{compose}(\psi(v_1), \psi(v_2))$ and where the new vertex sits
+in the next-depth schedule. The graph view says \emph{what is
+connected}; the computational view says \emph{how each step
+rewrites}. Both are accurate; together they make the binary-operator /
+ternary-routing distinction of \S\ref{sec:intro-arity}
+visible.}\label{fig:binary-ternary-layered}
+\end{figure}
 
 \subsection{Plan of the paper}\label{sec:intro-plan}
 

@@ -1,0 +1,73 @@
+% Layered hyperedge rendering: graph (a) + computational (c)
+% Same 4-vertex / 3-hyperedge data; two complementary views.
+% Used by closure_quotient_with_hodge_corpus.tex §1.7.
+\begin{tikzpicture}[font=\small]
+
+% ---------- Panel (a): graph view (centroid-star) ----------
+\begin{scope}[shift={(0,0)}]
+  \node[font=\bfseries] at (0,2.5) {(a) Graph view};
+  \node[font=\scriptsize,align=center] at (0,2.1)
+       {ternary hyperedge = three vertices linked by a centroid};
+
+  \coordinate (av1) at (0, 1.5);
+  \coordinate (av2) at (-1.3, 0);
+  \coordinate (av3) at (0, -1.5);
+  \coordinate (av4) at (1.3, 0);
+
+  \coordinate (ae1) at ({(0 + (-1.3) + 0)/3}, {(1.5 + 0 + (-1.5))/3});
+  \coordinate (ae2) at ({((-1.3) + 0 + 1.3)/3}, {(0 + (-1.5) + 0)/3});
+  \coordinate (ae3) at ({(0 + 0 + 1.3)/3}, {(1.5 + (-1.5) + 0)/3});
+
+  \draw[blue!60,thin] (av1)--(ae1)--(av2) (ae1)--(av3);
+  \draw[red!60,thin]  (av2)--(ae2)--(av3) (ae2)--(av4);
+  \draw[green!50!black,thin] (av1)--(ae3)--(av3) (ae3)--(av4);
+
+  \fill[blue!60]  (ae1) circle (1.3pt);
+  \fill[red!60]   (ae2) circle (1.3pt);
+  \fill[green!50!black] (ae3) circle (1.3pt);
+
+  \foreach \v/\lbl in {av1/$v_1$, av2/$v_2$, av3/$v_3$, av4/$v_4$} {
+    \fill[black] (\v) circle (1.6pt);
+    \node[font=\scriptsize, above right=-1pt and 1pt of \v] {\lbl};
+  }
+\end{scope}
+
+% ---------- Panel (c): computational view (ordered-slot) ----------
+\begin{scope}[shift={(6,0)}]
+  \node[font=\bfseries] at (0,2.5) {(c) Computational view};
+  \node[font=\scriptsize,align=center] at (0,2.1)
+       {slot 1, 2 = operator inputs; slot 3 = output (arrow)};
+
+  \coordinate (cv1) at (0, 1.5);
+  \coordinate (cv2) at (-1.3, 0);
+  \coordinate (cv3) at (0, -1.5);
+  \coordinate (cv4) at (1.3, 0);
+
+  \coordinate (ce1) at ({(0 + (-1.3) + 0)/3}, {(1.5 + 0 + (-1.5))/3});
+  \coordinate (ce2) at ({((-1.3) + 0 + 1.3)/3}, {(0 + (-1.5) + 0)/3});
+  \coordinate (ce3) at ({(0 + 0 + 1.3)/3}, {(1.5 + (-1.5) + 0)/3});
+
+  % e1 = (v1, v2, v3): inputs solid, output dashed
+  \draw[blue!60,thick] (cv1)--(ce1);
+  \draw[blue!60,thick] (cv2)--(ce1);
+  \draw[blue!60,dashed,-{Latex[length=4pt]}] (ce1)--(cv3);
+
+  \draw[red!60,thick] (cv2)--(ce2);
+  \draw[red!60,thick] (cv3)--(ce2);
+  \draw[red!60,dashed,-{Latex[length=4pt]}] (ce2)--(cv4);
+
+  \draw[green!50!black,thick] (cv1)--(ce3);
+  \draw[green!50!black,thick] (cv3)--(ce3);
+  \draw[green!50!black,dashed,-{Latex[length=4pt]}] (ce3)--(cv4);
+
+  \fill[blue!60]  (ce1) circle (1.3pt);
+  \fill[red!60]   (ce2) circle (1.3pt);
+  \fill[green!50!black] (ce3) circle (1.3pt);
+
+  \foreach \v/\lbl in {cv1/$v_1$, cv2/$v_2$, cv3/$v_3$, cv4/$v_4$} {
+    \fill[black] (\v) circle (1.6pt);
+    \node[font=\scriptsize, above right=-1pt and 1pt of \v] {\lbl};
+  }
+\end{scope}
+
+\end{tikzpicture}
