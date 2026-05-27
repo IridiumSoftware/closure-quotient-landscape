@@ -1,0 +1,19 @@
+Validity gate: K_6^3 C-closed (POOL_A, depth=5) = 102  (must be 102) -> PASS
+
+====================================================================================
+Probe — boundary self-regulation: Q_48 is the smallest doubly-fixed
+====================================================================================
+
+      Q   |Q|   |F(Q)|@d4   |F(Q)|@d5   |Q∪C(Q)|  F-fix  C-fix  BOTH
+------------------------------------------------------------------------------------
+   Q_12    12          12          12         24      Y      N      
+   Q_24    24          24          24         48      Y      N      
+   Q_45    45          45          45         90      Y      N      
+   Q_48    48          48          48         48      Y      Y   YES
+   Q_51    51          51          51        102      Y      N      
+   Q_84    84          84          84         84      Y      Y   YES
+   Q_90    90          90          90         90      Y      Y   YES
+  Q_102   102         102         102        102      Y      Y   YES
+
+Smallest doubly-fixed: Q_48  (|Q|=48)
+Hypothesis 'Q_48 carries boundary self-regulation as smallest doubly-fixed': PASS

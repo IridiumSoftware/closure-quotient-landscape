@@ -9,6 +9,9 @@
 *.fls
 *.synctex.gz
 
+# Probe stdout captures (referenced by the paper; must be tracked)
+!*.stdout.log
+
 # Python
 __pycache__/
 *.pyc

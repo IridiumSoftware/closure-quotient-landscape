@@ -1,0 +1,21 @@
+Validity gate: K_6^3 C-closed (POOL_A, depth=5) = 102  (must be 102) -> PASS
+
+================================================================================
+Probe — Q_45 -> Q_90 carries repair / efficient-cause production
+================================================================================
+
+The C-doubling map Q -> Q ∪ C(Q) is the Rosen-style internal
+corrective. Under generic ICs (J fpf, f=0) it fires cleanly:
+|Q ∪ C(Q)| = 2|Q|. Under degenerate ICs (real-valued: ψ̄ ≡ ψ)
+it collapses: |Q ∪ C(Q)| = |Q|.
+
+IC pool                           |Q_45|   |Q∪C(Q)|    2|Q|    f                verdict
+--------------------------------------------------------------------------------------
+POOL_A (canonical s58 6-IC)           45         90      90    0         CLEAN DOUBLING
+POOL_B (strict-generic)               45         90      90    0         CLEAN DOUBLING
+POOL_REAL (purely real)               45         45      90   45         TOTAL COLLAPSE
+
+Repair fires under POOL_A (Q_45 -> Q_90, f=0): YES
+Repair fails under POOL_REAL (total collapse, f=|Q|): YES
+
+Hypothesis 'C-doubling = Rosen-style internal repair conditioned on generic ICs': PASS

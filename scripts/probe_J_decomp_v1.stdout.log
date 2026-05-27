@@ -1,0 +1,26 @@
+Q_51:  |V|=51, |E|=315, |F|=605, L_1 dim=315
+   spectrum range: [0.858437, 51.343785]
+
+Q_102: |Q|=102, J fpf=True, J involution=True
+        |V|=102, |E|=840, |F|=2760
+
+J_edge involution (J^2 = I): True
+J_edge orthogonal           : True
+[J_edge, L_1] = 0           : True
+
+V_+ dim (J=+1): 420  V_- dim (J=-1): 420  sum = 840 (should equal 840)
+L_+ shape: (420, 420), L_- shape: (420, 420)
+L_+ spectrum range: [1.726766, 67.309367]
+L_- spectrum range: [1.726766, 67.309367]
+
+Comparison: V_+ spectrum vs Q_51's L_1 spectrum
+  dim(V_+) = 420 ≠ dim(L_1(Q_51)) = 315
+
+============================================================================
+Verdict: J-decomposition resolves Probe 5(ii)
+============================================================================
+  L_1(Q_102) splits into V_+ ⊕ V_- under J-action.
+  dim(V_+) = 420, dim(V_-) = 420, total = 840.
+
+  V_+ ≡ Q_51's L_1 spectrum: NO
+

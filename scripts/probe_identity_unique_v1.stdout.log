@@ -1,0 +1,31 @@
+==============================================================================
+Probe — Q_102 is unique identity carrier in the canonical family
+==============================================================================
+
+Q_51 reference: 51 cluster reps built.
+
+  evaluated Q_12 (mode=single): |Q|=12, F=True, C=False, is_C(K6³)=False, strip→Q_51=False
+  evaluated Q_24 (mode=single): |Q|=24, F=True, C=False, is_C(K6³)=False, strip→Q_51=False
+  evaluated Q_45 (mode=single): |Q|=45, F=True, C=False, is_C(K6³)=False, strip→Q_51=False
+  evaluated Q_48 (mode=cclosed): |Q|=48, F=True, C=True, is_C(K6³)=False, strip→Q_51=False
+  evaluated Q_51 (mode=single): |Q|=51, F=True, C=False, is_C(K6³)=False, strip→Q_51=False
+  evaluated Q_84 (mode=cclosed): |Q|=84, F=True, C=True, is_C(K6³)=False, strip→Q_51=False
+  evaluated Q_90 (mode=cclosed): |Q|=90, F=True, C=True, is_C(K6³)=False, strip→Q_51=False
+  evaluated Q_102 (mode=cclosed): |Q|=102, F=True, C=True, is_C(K6³)=True, strip→Q_51=True
+
+Identity-carrier discrimination table:
+
+      Q   |Q|  (1) F-fix  (2) C-fix  (3) C(K6³)  (4) Max-6v  (5) Strip→Q_51  ALL 5
+--------------------------------------------------------------------------------
+   Q_12    12          Y          N           N           N               N       
+   Q_24    24          Y          N           N           N               N       
+   Q_45    45          Y          N           N           N               N       
+   Q_48    48          Y          Y           N           N               N       
+   Q_51    51          Y          N           N           N               N       
+   Q_84    84          Y          Y           N           N               N       
+   Q_90    90          Y          Y           N           N               N       
+  Q_102   102          Y          Y           Y           Y               Y    YES
+
+Members satisfying all 5 criteria: ['Q_102']
+
+Hypothesis 'Q_102 uniquely carries identity (5-criterion)': PASS

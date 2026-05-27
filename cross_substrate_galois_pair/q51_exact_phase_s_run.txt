@@ -1,0 +1,83 @@
+Q_51 exact Phase S — S_6 decomposition on exact build, Julia convention
+
+S_6 character table orthogonality: OK
+
+Building exact Q_51...
+  n_cl = 51, q_he triples = 605
+
+Building Julia-convention cell complex...
+  |V|=51  |E|=315  |F|=605  χ=341
+
+Computing integer L_1...
+  L_1 shape = (315, 315), dtype = int64
+
+Identifying orbits via co-occurrence multiset...
+  V_6 = 6 clusters: [0, 1, 2, 3, 4, 5]
+  V_15 = 15 clusters
+  V_30 = 30 clusters
+
+Verifying eigenvalue spectrum has {3∓√3} pair at m=30...
+  m({3-√3}) = 30    m({3+√3}) = 30
+
+Building σ_V and σ_E for each S_6 conjugacy class representative...
+  class  0      (1^6) size   1  χ_{C^1}= 315  commute=✓
+  class  1    (2,1^4) size  15  χ_{C^1}=  93  commute=✓
+  class  2  (2^2,1^2) size  45  χ_{C^1}=  11  commute=✓
+  class  3      (2^3) size  15  χ_{C^1}=  -3  commute=✓
+  class  4    (3,1^3) size  40  χ_{C^1}=  36  commute=✓
+  class  5    (3,2,1) size 120  χ_{C^1}=   0  commute=✓
+  class  6      (3^2) size  40  χ_{C^1}=   0  commute=✓
+  class  7    (4,1^2) size  90  χ_{C^1}=   9  commute=✓
+  class  8      (4,2) size  90  χ_{C^1}=  -1  commute=✓
+  class  9      (5,1) size 144  χ_{C^1}=   0  commute=✓
+  class 10        (6) size 120  χ_{C^1}=   0  commute=✓
+
+Character vector χ_{C^1} = (315, 93, 11, -3, 36, 0, 0, 9, -1, 0, 0)
+
+Applying Frobenius reciprocity...
+
+        irrep   dim   m_ρ   m·dim
+  --------------------------------
+          [6]     1     6       6  ←
+        [5,1]     5    14      70  ←
+        [4,2]     9     9      81  ←
+      [4,1,1]    10     9      90  ←
+        [3,3]     5     2      10  ←
+      [3,2,1]    16     3      48  ←
+    [3,1,1,1]    10     1      10  ←
+      [2,2,2]     5     0       0
+    [2,2,1,1]     9     0       0
+  [2,1,1,1,1]     5     0       0
+        [1^6]     1     0       0
+  --------------------------------
+        TOTAL                 315
+
+  |C^1| = 315      Σ m_ρ · dim_ρ = 315     NULL-3 PASS ✓
+
+============================================================
+  PER-CLUSTER DECOMPOSITION OF THE {3∓√3} EIGENSPACES
+============================================================
+
+λ = 3-√3  (multiplicity 30)
+  χ_λ = ( 30.000,   4.000,   2.000,   0.000,  -3.000,   1.000,  -0.000,  -2.000,   0.000,   0.000,  -0.000)
+
+        irrep   dim    m_λ,ρ
+  ----------------------------
+        [4,2]     9        1
+        [3,3]     5        1
+      [3,2,1]    16        1
+  ----------------------------
+        TOTAL        total dim= 30    NULL-3 PASS ✓
+
+λ = 3+√3  (multiplicity 30)
+  χ_λ = ( 30.000,   4.000,   2.000,   0.000,  -3.000,   1.000,  -0.000,  -2.000,  -0.000,  -0.000,  -0.000)
+
+        irrep   dim    m_λ,ρ
+  ----------------------------
+        [4,2]     9        1
+        [3,3]     5        1
+      [3,2,1]    16        1
+  ----------------------------
+        TOTAL        total dim= 30    NULL-3 PASS ✓
+
+Done.

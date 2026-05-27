@@ -5,11 +5,19 @@
 > Aaron Green — 2026
 
 The rendered paper is **[`closure_quotient_landscape.pdf`](closure_quotient_landscape.pdf)**
-(~50 pp, 12 pt single-spaced). LaTeX source is
+(co-authored Aaron Green + Brian Crabtree). LaTeX source is
 `closure_quotient_landscape.tex`. Repository is the canonical
 self-contained build artefact: TeX source, bibliography (inline
-`\thebibliography`), figures, and cited reference documents all live
-here.
+`\thebibliography`), figures, cross-substrate Galois-pair diagnostic
+artifacts (`cross_substrate_galois_pair/`), and cited reference
+documents all live here.
+
+This is **v2**: the original closure-quotient landscape (Part 1) merged
+with a 9-substrate discrete Hodge corpus (Part 2) demonstrating the
+cyclotomic-Galois pattern across the Platonic family, the torus
+$T^2_{3,3}$, $\mathbb{RP}^2$, the Klein bottle, the heptagonal
+bipyramid (cubic extension), and the soccer ball. The v1 (closure-
+quotient only) paper is preserved in git history.
 
 ## Headline
 
@@ -34,10 +42,12 @@ hierarchy.
 closure_quotient_landscape.tex   — LaTeX source (single file, inline bibliography)
 closure_quotient_landscape.pdf   — rendered output (regenerable via `make`)
 Makefile                         — `latexmk -pdf` build + `verify-scripts` target
-RONE_SUBMISSION.md               — submission metadata for researchers.one
 figures/                         — auto-generated TikZ figures (one .tex per quotient)
 references/                      — canonical static copies of cited findings docs
-scripts/                         — probe scripts (Python stdlib only, no installs)
+scripts/                         — probe scripts (Python stdlib only for the core,
+                                   plus an env-var-gated probe set that imports the
+                                   CFS exact-arithmetic builders — see below)
+cross_substrate_galois_pair/     — Galois-pair diagnostic run outputs cited in §28
 LICENSE                          — CC-BY-4.0
 ```
 
@@ -65,13 +75,20 @@ for s in *.py; do python3 "$s" || echo "FAIL: $s"; done
 
 Total runtime under five minutes on a single CPU core.
 
-Some scripts (`dump_q24_to_c.py`, `dump_q102_to_c.py`,
-`dump_quotient_to_tikz.py`) import canonical exact-arithmetic builders
-that live in the broader CFS programme working tree
-(`github.com/IridiumSoftware/closure-forces-structure` and its public
-mirror); the figure `.tex` files in `figures/` are pre-generated, so
-running them is only needed to *regenerate* the figures from updated
-data.
+The figure `.tex` files in `figures/` are pre-generated; the
+visualization-generator scripts in `scripts/` are only needed to
+*regenerate* them.
+
+A second group of scripts — the `probe_*_v1.py` set plus
+`q51_exact_phase_s_python.py` and `q51_exact_vs_fidelity_verification.py`
+— imports canonical exact-arithmetic builders that live in the broader
+CFS programme working tree. Set the `CFS_REPO_ROOT` environment
+variable to a checkout of
+[Closure-Forces-Structure---SM-Rosen-Hypergraphs](https://github.com/IridiumSoftware/Closure-Forces-Structure---SM-Rosen-Hypergraphs)
+before invoking them; without it they exit cleanly with a clear
+message. The captured stdout from each run is committed alongside
+the script as `*.stdout.log` so the cited evidence survives without
+re-running.
 
 ## Citation
 

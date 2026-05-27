@@ -1,0 +1,62 @@
+============================================================================
+Probe — Q_84 doubly-terminal stand-alone verification
+============================================================================
+
+§6 of the paper (line 1127) lists Q_48, Q_90, Q_102 as doubly-terminal.
+Probe 1 reported Q_84 also doubly-terminal. This probe re-verifies with
+the canonical closure-v5 builder + extended depth range (d=4..7).
+
+
+=== Q_84 (seed: 36 edges on 6 verts) ===
+  |Q_84| = 84  (expected 84) -> OK
+  cell complex: 1368 hyperedge triples in q_he
+  F-closure across depths:
+    depth=4: |F(Q)|=84  (F-fixed)
+    depth=5: |F(Q)|=84  (F-fixed)
+    depth=6: |F(Q)|=84  (F-fixed)
+    depth=7: |F(Q)|=84  (F-fixed)
+  C-iterate: |Q ∪ C(Q)|=84  (C-idempotent)
+
+=== Q_90 (seed: 42 edges on 6 verts) ===
+  |Q_90| = 90  (expected 90) -> OK
+  cell complex: 1584 hyperedge triples in q_he
+  F-closure across depths:
+    depth=4: |F(Q)|=90  (F-fixed)
+    depth=5: |F(Q)|=90  (F-fixed)
+    depth=6: |F(Q)|=90  (F-fixed)
+    depth=7: |F(Q)|=90  (F-fixed)
+  C-iterate: |Q ∪ C(Q)|=90  (C-idempotent)
+
+=== Q_48 (seed: 6 edges on 6 verts) ===
+  |Q_48| = 48  (expected 48) -> OK
+  cell complex: 516 hyperedge triples in q_he
+  F-closure across depths:
+    depth=4: |F(Q)|=48  (F-fixed)
+    depth=5: |F(Q)|=48  (F-fixed)
+    depth=6: |F(Q)|=48  (F-fixed)
+    depth=7: |F(Q)|=48  (F-fixed)
+  C-iterate: |Q ∪ C(Q)|=48  (C-idempotent)
+
+=== Q_102 (seed: 120 edges on 6 verts) ===
+  |Q_102| = 102  (expected 102) -> OK
+  cell complex: 2760 hyperedge triples in q_he
+  F-closure across depths:
+    depth=4: |F(Q)|=102  (F-fixed)
+    depth=5: |F(Q)|=102  (F-fixed)
+    depth=6: |F(Q)|=102  (F-fixed)
+    depth=7: |F(Q)|=102  (F-fixed)
+  C-iterate: |Q ∪ C(Q)|=102  (C-idempotent)
+
+============================================================================
+Stand-alone verification verdict:
+  Q_48  doubly-terminal: PASS
+  Q_84  doubly-terminal: PASS   <-- omitted from §6
+  Q_90  doubly-terminal: PASS
+  Q_102 doubly-terminal: PASS
+
+Conclusion: §6 should include Q_84 in Theorem double-terminal.
+The four doubly-terminal members on 6-vertex seeds are:
+  Q_48  = C-closed(cyc(6))         smallest
+  Q_84  = C-closed(adjacent-36)    new in v2
+  Q_90  = C-closed(q45-seed)       (adjacent + 6 pads)
+  Q_102 = C-closed(K_6^3)          maximal

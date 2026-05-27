@@ -1,0 +1,39 @@
+==============================================================================
+Probe — Q_51 = K_6^3 carries scale separation (sector-strip identity)
+==============================================================================
+
+Q_51: 51 clusters, 605 q_he triples
+   cell complex: |V|=51, |E|=315, |F|=605
+   L_1 shape: (315, 315), integer entries
+   L_1 spectrum range: [0.858437, 51.343785]
+   |ker L_1(Q_51)|: 0
+
+Building Q_102 (C-closed K_6^3)...
+Q_102: orig_only=51, conj_only=51, both=0
+   Expected: 51, 51, 0 (J fixed-point-free under canonical Gaussian ICs)
+J fpf on Q_102: YES
+J maps orig <-> conj: YES
+
+Sector-strip identity: orig_only clusters of Q_102 match Q_51?
+   51/51 Q_51 cluster reps proj-equivalent to a Q_102 orig_only rep
+   Sector-strip identity: PASS
+
+L_1 spectrum comparison (Q_102 vs 2 × Q_51):
+   Q_102 cell complex: |V|=102, |E|=840, |F|=2760
+   L_1(Q_102) shape: (840, 840)
+   dim mismatch: 2×|spec(Q_51)|=630 vs |spec(Q_102)|=840 — block-diagonal claim FAILS (edges/faces dimensions differ: cross-sector hyperedges present)
+
+K_n^3 depth-stability (single-side):
+  n pred n(3n-1)/2     d=3     d=4     d=5 stable
+------------------------------------------------------------
+  5             35      35      35      35   Y
+  6             51      51      51      51   Y
+  7             70      70      70      70   Y
+
+==============================================================================
+Verdict:
+  (i)  Sector-strip identity (Q_102 orig_only = Q_51): PASS
+  (ii) Spectrum 2×Q_51 = Q_102: FAIL
+  (iii) K_n^3 depth-stable n=5,6,7 at d=4,5: PASS
+
+Hypothesis 'Q_51 carries scale separation via sector-strip + depth-stability': PARTIAL/FAIL

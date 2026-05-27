@@ -1,0 +1,22 @@
+Validity gate: K_6^3 single-side (POOL_A, depth=5) = 51  (must be 51) -> PASS
+
+==============================================================================
+Probe — Q_12 = generic floor (constraint maintenance)
+==============================================================================
+
+Under truly-generic ICs, every Rosen-closed ternary seed with
+>=3 vertices closes to at least |Q| = 12 (paper Prop 5.X).
+Sub-12 closures arise only under constraint-violating ICs.
+
+seed                    POOL_A   (canonical generic)         POOL_B   (strict-generic)    POOL_REAL (real-valued, degen)    POOL_DEGEN_PARALLEL (parallel)
+----------------------------------------------------------------------------------------------------------------------------------------------------------
+cyc(3)                                        |Q|=12                            |Q|=12                            |Q|=12                       |Q|=1  <<<<
+cyc(4)                                        |Q|=16                            |Q|=16                            |Q|=16                       |Q|=1  <<<<
+cyc(5)                                        |Q|=20                            |Q|=20                            |Q|=20                       |Q|=1  <<<<
+K_3^3 (perms)                                 |Q|=12                            |Q|=12                            |Q|=12                       |Q|=1  <<<<
+K_4^3                                         |Q|=22                            |Q|=22                            |Q|=22                       |Q|=1  <<<<
+
+All generic-IC closures >= 12 (floor maintained): YES
+Some degenerate-IC closure < 12 (constraint violated): YES
+
+Hypothesis 'Q_12 = constraint-maintaining floor; sub-12 = constraint-violation': PASS
