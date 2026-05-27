@@ -1681,20 +1681,34 @@ edges) destroys the symmetry that makes the count factor. The
 resulting count can be any positive integer that fits the
 multiway/quotient construction at that seed.
 
-\subsection{$Q_{181}$ exhibited}\label{sec:primes-Q181}
+\subsection{$Q_{181}$ exhibited (Tier~3)}\label{sec:primes-Q181}
 
-\begin{theorem}[$Q_{181}$ exists]\label{thm:Q181}
-A specific $12$-vertex $132$-edge irregular ternary hypergraph closes
-exactly to $|\Qn| = 181$ under truly-generic ICs. The seed is robust
-in the sense that $12$ independent random draws from the
-$(12, 132)$ density bucket all give the same closure count.
+\begin{theorem}[$Q_{181}$ exists, Tier~3: exhibited seed]\label{thm:Q181}
+A specific $12$-vertex $132$-edge irregular ternary hypergraph (listed
+in Appendix~\ref{app:canonical-seeds}) closes exactly to $|\Qn| = 181$
+under the canonical Gaussian-integer ICs. The closure count is robust
+in the sense that $12$ independent random draws from the $(12, 132)$
+density bucket all give $|\Qn| = 181$ under the same ICs.
 \end{theorem}
 
-The seed is constructed in \texttt{q181\_search.py}. It is a
-random-edge-subset of $\Kn[12]$ (which has $12 \cdot 11 \cdot 10 = 1320$
-edges) with the edge count fixed at $132$ (density $0.10$), drawn
-under a $\bZi$-validity gate. The exhibited closure of $181$ is
-verified exact under both Pools~B and~C.
+The seed was \emph{discovered} by the random density sweep in
+\texttt{q181\_search.py} (\texttt{random.seed(2718)}, density~$0.10$,
+first hit). Once discovered, the seed itself is fixed: the canonical
+edge list is recorded as \texttt{Q181\_SEED} in
+\texttt{paper/scripts/q181\_canonical\_seed.py} (Python) and as
+\texttt{q181SeedEdges} in \texttt{haskell/src/CFS/Topologies.hs}
+(Haskell). Both produce $|\Qn| = 181$ deterministically; the random
+sweep is not load-bearing for the existence claim, only for the
+discovery method. The seed is a random-edge-subset of $\Kn[12]$ (which
+has $12 \cdot 11 \cdot 10 = 1320$ edges) with the edge count fixed at
+$132$ (density $0.10$). The exhibited closure is verified exact under
+both Pools~B and~C.
+
+\emph{Evidence tier.} Theorem~\ref{thm:Q181} is Tier~3 (finite exact
+validation): existence is established by exhibiting a specific seed
+and computing its closure exactly; no classification of all seeds
+producing $|\Qn| = 181$ or characterisation of the size-spectrum of
+irregular closures is asserted.
 
 Two specific properties of $Q_{181}$:
 \begin{enumerate}[leftmargin=2em,topsep=2pt,itemsep=2pt]
@@ -1885,7 +1899,7 @@ odd-cardinality closure objects live) but is not what the CFS
 spectral-triple constructions are about.
 
 % =============================================================================
-\section{The Composition Algebra}\label{sec:composition}
+\section{The Composition Algebra (Tier~3)}\label{sec:composition}
 
 This is the headline result of the paper. The closure laws of
 \S\ref{sec:closure-laws} catalogue the closure cardinality for two
@@ -1895,12 +1909,23 @@ of \S\ref{sec:primes} adds a third route. What unifies them?
 The unifying structure is a \emph{generative algebra} on the closure
 quotients themselves: the closure count of a composite seed
 $A \circ B$ is determined by the closure counts of the pieces $A$
-and $B$ plus a single \emph{universal interface term} $\delta$ that
-depends only on the join mode --- not on the internal structure of
-$A$ or $B$. The structure is a commutative monoid under disjoint
-sum~$\sqcup$, and the $\Ccls$-doubling rule of
+and $B$ plus a single \emph{tested-regime-universal interface term}
+$\delta$ that depends only on the join mode --- not on the internal
+structure of $A$ or $B$. The structure is a commutative monoid under
+disjoint sum~$\sqcup$, and the $\Ccls$-doubling rule of
 \S\ref{sec:law-Cdouble} falls out as a special case (the conjugate
 copy is structurally disjoint under generic ICs).
+
+\paragraph{Evidence tier.} The composition rule $|\Qn(A \circ B)| =
+|\Qn(A)| + |\Qn(B)| + \delta(\iota)$ is established at Tier~3 (finite
+exact validation): the universal $\delta$ values $(\delta_\sqcup = 0,\
+\delta_{\mathrm{bridge}} = +3,\ \delta_{\mathrm{glue}\text{-}g} =
+-(4g - 3))$ are verified across the eight $(A, B)$ pairs and six join
+modes catalogued in Table~\ref{tab:composition-data} below, but
+$A$-and-$B$-independence has not been proved across all
+canonical-family pairs and join configurations. The
+\S\ref{sec:proof-program} proof program lists the closed-form
+verification this would require.
 
 \subsection{Setup}\label{sec:comp-setup}
 
@@ -4744,6 +4769,86 @@ The specific 20-triple listings are in the
 \texttt{POOL\_B} and \texttt{POOL\_C}; both reproduce the pentagonal
 formula exactly at every $n = 6, \dots, 20$ (Pools~B and~C agree
 exactly at every measured $n$).
+
+\section{Canonical seed edge lists}\label{app:canonical-seeds}
+
+For full reproducibility we record the canonical seed edge lists used
+in the paper. Every $\Qn$ cardinality in the main text is computed
+against one of these lists under the canonical Gaussian-integer ICs
+(Appendix~\ref{app:notation}; the 15-element list \texttt{\_GEN\_ICS}
+in \texttt{q102\_build\_exact\_v1.py}, first $n$ entries for an
+$n$-vertex seed).
+
+\subsection*{$G_0$: the canonical 6-vertex Rosen-closed seed
+($|Q| = 24$ single side, $|Q| = 48$ $\Ccls$-closed)}
+
+\[
+G_0 \;=\; \{
+  (0,1,2),\, (1,2,3),\, (2,3,4),\, (3,4,5),\, (4,5,0),\, (5,0,1)
+\}
+\]
+
+\subsection*{adjacent-ternary: all permutations of $(i, i{+}1, i{+}2)$
+on $6$ vertices ($|Q| = 42$ single side, $|Q| = 84$ $\Ccls$-closed)}
+
+$36$ edges: all $6$ permutations of each of $\{(0,1,2), (1,2,3), (2,3,4),
+(3,4,5), (4,5,0), (5,0,1)\}$.
+
+\subsection*{$\Kn[n]$: complete ternary on $n$ vertices
+($|Q| = 51$ at $n = 6$ single side, $|Q| = 102$ at $n = 6$
+$\Ccls$-closed; pentagonal for $n \in [6, 20]$)}
+
+All ordered triples of distinct vertices, $|\Kn[n]| = n(n{-}1)(n{-}2)$.
+
+\subsection*{$Q_{45} / Q_{90}$: adjacent-ternary plus 6 pads
+($|Q| = 45$ single side, $|Q| = 90$ $\Ccls$-closed)}
+
+The seed is the $36$-edge adjacent-ternary list above together with the
+following $6$ pads drawn from $\Kn[6] \setminus \mathrm{adjacent}$
+under \texttt{numpy.random.default\_rng(42).shuffle}:
+\[
+(0,2,5),\quad (4,2,0),\quad (0,2,3),\quad (4,1,0),\quad (5,3,2),\quad (1,5,4).
+\]
+This is the literal output of \texttt{q45\_seed\_edges(seed=42)} in
+\texttt{paper/scripts/probe\_q84\_smallest\_doubly\_fixed\_v1.py};
+both Python and Haskell ports use these pads as a literal list.
+
+\subsection*{$Q_{181}$: irregular 12-vertex 132-edge seed
+($|Q| = 181$ single side)}
+
+The seed below was discovered by the random density sweep in
+\texttt{q181\_search.py} (\texttt{random.seed(2718)}, density~$0.10$,
+first hit at trial 0). Once discovered, the edge list is fixed and
+both the Python reference
+(\texttt{paper/scripts/q181\_canonical\_seed.py}, constant
+\texttt{Q181\_SEED}) and the Haskell port
+(\texttt{haskell/src/CFS/Topologies.hs}, constant
+\texttt{q181SeedEdges}) reproduce $|\Qn| = 181$ deterministically.
+
+\begin{verbatim}
+( 0,2,1), ( 0,4,9), ( 0,4,10), ( 0,8,3), ( 0,9,1), ( 0,9,7),
+( 0,9,8), ( 0,10,4), ( 0,11,5), ( 1,0,9), ( 1,2,10), ( 1,4,7),
+( 1,6,4), ( 1,6,8), ( 1,7,4), ( 1,7,5), ( 1,8,0), ( 1,10,4),
+( 2,0,6), ( 2,1,9), ( 2,3,1), ( 2,3,5), ( 2,3,6), ( 2,6,1),
+( 2,6,10), ( 2,7,1), ( 2,9,1), ( 2,10,5), ( 3,0,10), ( 3,0,11),
+( 3,2,10), ( 3,4,5), ( 3,4,7), ( 3,5,6), ( 3,7,5), ( 3,10,1),
+( 4,0,5), ( 4,0,8), ( 4,1,5), ( 4,1,10), ( 4,1,11), ( 4,2,9),
+( 4,3,1), ( 4,5,2), ( 4,5,9), ( 4,7,8), ( 4,10,11), ( 4,11,3),
+( 4,11,7), ( 5,1,4), ( 5,2,6), ( 5,2,7), ( 5,3,4), ( 5,4,10),
+( 5,6,4), ( 5,8,10), ( 5,8,11), ( 5,9,6), ( 5,9,8), ( 5,9,11),
+( 5,11,0), ( 6,0,5), ( 6,0,8), ( 6,0,9), ( 6,2,0), ( 6,2,7),
+( 6,4,9), ( 6,5,1), ( 6,7,0), ( 6,7,3), ( 6,7,4), ( 6,9,7),
+( 6,10,7), ( 7,0,3), ( 7,2,1), ( 7,2,9), ( 7,2,11), ( 7,3,4),
+( 7,5,10), ( 7,6,9), ( 7,6,10), ( 7,6,11), ( 7,10,0), ( 7,11,1),
+( 8,1,3), ( 8,1,5), ( 8,1,9), ( 8,2,3), ( 8,4,7), ( 8,4,9),
+( 8,5,4), ( 8,6,1), ( 8,6,7), ( 8,7,9), ( 8,9,10), ( 8,11,9),
+( 9,0,5), ( 9,0,8), ( 9,1,3), ( 9,2,5), ( 9,3,0), ( 9,4,10),
+( 9,5,7), ( 9,5,10), ( 9,5,11), ( 9,6,7), ( 9,7,10), ( 9,8,0),
+( 9,10,1), ( 9,11,7), (10,1,4), (10,1,8), (10,1,11), (10,2,7),
+(10,2,9), (10,3,1), (10,3,6), (10,7,2), (10,8,0), (10,8,2),
+(10,9,11), (10,11,1), (10,11,6), (11,1,8), (11,2,6), (11,3,9),
+(11,4,2), (11,4,3), (11,5,2), (11,6,0), (11,9,10), (11,10,6)
+\end{verbatim}
 
 \section{Proof of $\delta_{\sqcup} = 0$}\label{app:proofs}
 

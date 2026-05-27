@@ -36,12 +36,13 @@ main = do
 
   putStrLn "--- single-side cardinalities (M(seed)/~) ---"
   let cards =
-        [ ("Q_24  (G_0 single side)",        g0Topo,            24, 5)
-        , ("Q_42  (adjacent single side)",   adjacentTernary,   42, 5)
-        , ("Q_45  (adj+6pads single side)",  q45SeedEdges,      45, 5)
-        , ("Q_51  (K_6^3 single side)",      completeTernary 6, 51, 5)
+        [ ("Q_24  (G_0 single side)",        g0Topo,            24, 5, 6)
+        , ("Q_42  (adjacent single side)",   adjacentTernary,   42, 5, 6)
+        , ("Q_45  (adj+6pads single side)",  q45SeedEdges,      45, 5, 6)
+        , ("Q_51  (K_6^3 single side)",      completeTernary 6, 51, 5, 6)
+        , ("Q_181 (12V/132E canonical)",     q181SeedEdges,    181, 5, q181NVerts)
         ]
-  cCards <- mapM (\(n, t, e, d) -> singleSideCheck n t e d) cards
+  cCards <- mapM (\(n, t, e, d, nv) -> singleSideCheckN n t e d nv) cards
   mapM_ reportCheck cCards
 
   putStrLn ""
@@ -83,8 +84,11 @@ main = do
   if passed == total then exitSuccess else exitFailure
 
 singleSideCheck :: String -> [Hyperedge] -> Int -> Int -> IO Check
-singleSideCheck name seed expected depth = do
-  let n = singleSideCardinality seed (canonicalICs 6) depth
+singleSideCheck name seed expected depth = singleSideCheckN name seed expected depth 6
+
+singleSideCheckN :: String -> [Hyperedge] -> Int -> Int -> Int -> IO Check
+singleSideCheckN name seed expected depth nVerts = do
+  let n = singleSideCardinality seed (canonicalICs nVerts) depth
   pure $ Check name (n == expected)
            ("got " ++ show n ++ ", expect " ++ show expected)
 
