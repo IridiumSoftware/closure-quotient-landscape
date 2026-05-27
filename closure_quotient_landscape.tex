@@ -483,6 +483,57 @@ The validity-boundary partition of \S\ref{sec:validity-boundary} maps
 Part~1 results onto these tiers; the spectrum-summary table of
 \S\ref{sec:dh-cs-spectrum-summary} does the same for Part~2.
 
+\subsection{Binary operator inside a ternary-hyperedge rewriting graph}
+\label{sec:intro-arity}
+
+The CFS rewriting kernel is structured at two different levels, and the
+remainder of the paper uses the distinction without comment, so we
+state it once at the outset.
+
+\emph{The operator is binary.} The production rule is the conjugated
+cross-product on $\bZ[i]^3$,
+\[
+  \mathrm{compose}(a, b) \;=\; \overline{\,a \times b\,},
+  \qquad a, b \in \bZ[i]^3,
+\]
+which takes \emph{two} cochains as input and returns one. As a map of
+sets it has signature $\bZ[i]^3 \times \bZ[i]^3 \to \bZ[i]^3$. Nothing
+in this paper treats the operator as a function of three cochains.
+
+\emph{The rewriting graph is ternary.} A hyperedge is a triple of
+vertex labels $(v_1, v_2, v_3)$, and the depth-$d$ rewriting step
+applies $\mathrm{compose}(\psi(v_1), \psi(v_2))$ to introduce a new
+vertex carrying $w$, then schedules \emph{three} new hyperedges
+$(w, v_2, v_3)$, $(w, v_1, v_3)$, $(w, v_1, v_2)$ at depth $d{+}1$.
+The third slot $v_3$ is not an operator input, but it propagates into
+the next-depth scheduling, so it is load-bearing for $|\Qn|$: changing
+the hyperedge arity changes the multiway expansion tree, and changes
+the gauge quotient.
+
+\emph{Both facts are type-checked.} An independent Haskell port of the
+kernel at \texttt{haskell/} (see \cite{haskell-cfs-kernel}) encodes the
+distinction in the type signatures
+\begin{verbatim}
+  compose :: Cochain -> Cochain -> Cochain     -- binary
+  type Hyperedge = (Vertex, Vertex, Vertex)    -- ternary
+\end{verbatim}
+and produces identical cardinalities to the Python reference on every
+canonical object ($|Q_{24}|=24$, $|Q_{42}|=42$, $|Q_{45}|=45$,
+$|Q_{51}|=51$ single-side; $|Q_{48}|=48$, $|Q_{84}|=84$, $|Q_{90}|=90$,
+$|Q_{102}|=102$ C-closed), together with J fixed-point-free involution
+and F-closure terminality at depths $4, 5, 6$ on $Q_{48}, Q_{84},
+Q_{90}, Q_{102}$. The structural-arity claim is therefore
+Tier~1 (type-checked) and the cardinality claim is Tier~3
+(two-implementation finite exact validation).
+
+Throughout the paper, ``ternary hypergraph'' refers to the rewriting
+graph's hyperedge arity --- the structure --- not to the operator's
+domain arity, which is binary. The Rosen $(M, R)$ interpretive language
+that surrounds the operator in \S\ref{sec:functional-roles} attaches to
+fixed-point and doubling properties of the gauge quotient $\Qn$; those
+properties depend on the hyperedge structure, which is genuinely
+ternary, not on the operator's argument count.
+
 \subsection{Plan of the paper}\label{sec:intro-plan}
 
 \textbf{Part~1 — closure-quotient landscape.}
@@ -1208,15 +1259,22 @@ and the orbits across the~$n$ edges are gauge-distinct. So the
 count is $n \cdot 4 = 4n$. Verified exact in the
 \texttt{small\_closure\_landscape\_scan.py} probe for $n = 3, \dots, 6$.
 
-\subsection{$\Kn \to n(3n{-}1)/2$: the pentagonal law}\label{sec:law-Kn}
+\subsection{$\Kn \to n(3n{-}1)/2$: the pentagonal law (Tier~3)}\label{sec:law-Kn}
 
-\begin{theorem}[Pentagonal closure of $\Kn$]\label{thm:Kn-pent}
+\begin{theorem}[Pentagonal closure of $\Kn$, Tier~3: finite exact validation]
+\label{thm:Kn-pent}
 For every $n$ in the empirically verified range $\{6, 7, \dots, 20\}$
 and under any IC pool passing the strengthened validity gate
 (Definition~\ref{def:gate-K10}),
 \[
 |\Qn(\Kn)| \;=\; \frac{n(3n{-}1)}{2}.
 \]
+The claim is finitely-exactly validated over $n \in [6, 20]$ by
+exact-arithmetic enumeration on two independent strict-generic IC
+pools; the closed-form identity holds at every probed $n$. The
+universal claim ``for all $n \ge 6$'' is not established and would
+require a counting proof (\S\ref{sec:proof-program}); we do not assert
+it here.
 The sequence is the pentagonal numbers
 \[
 \begin{array}{l}
@@ -2064,7 +2122,24 @@ The second is a direct consequence of the first. The third uses
 the second together with Theorem~\ref{thm:J-free}.
 
 % =============================================================================
-\section{Functional-Role Characterisation: $Q_n$ as Rosen $(M,R)$ Closure Operators}\label{sec:functional-roles}
+\section{Functional-Role Characterisation: $Q_n$ as Rosen $(M,R)$ Closure Operators (interpretive)}\label{sec:functional-roles}
+
+\textbf{Status.} This section is an \emph{interpretive perspective},
+not a mathematical claim. The mathematical content underlying every
+row of Table~\ref{tab:functional-roles} below --- fixed-point
+properties, cardinality doublings, constant-quotient counts, sector
+decompositions --- is established by exact-arithmetic probes and is
+load-bearing for the paper independently of the framing here. What
+this section adds is an interpretive mapping from those combinatorial
+facts onto Rosen's $(M, R)$-system vocabulary
+(\cite{Rosen1991}): boundary regulation, repair, constraint
+maintenance, causal entailment, scale separation, identity. The
+mapping is suggestive but not entailed by the kernel: a different
+biological or systems-theoretic vocabulary would give a different
+mapping over the same combinatorial witnesses. We retain Rosen's
+vocabulary because it has been useful for orienting CFS programme
+discussions, but read this section as commentary on top of the
+underlying algebraic results, not as derivation.
 
 The closure laws of \S\ref{sec:closure-laws}, the terminality results
 of \S\ref{sec:terminality}, the $\Jconj$-fpf analysis of
@@ -2073,28 +2148,30 @@ of \S\ref{sec:terminality}, the $\Jconj$-fpf analysis of
 closure-quotient family as a combinatorial object: counts, fixed
 points, doublings, and the universal interface correction~$\delta$.
 This section gives a complementary \emph{functional-role}
-characterisation in the framework of Rosen's
-$(M,R)$-systems~\cite{Rosen1991}, where a closed system must produce
-its own boundary regulation, repair operators, constraint maintenance,
-causal entailment, scale separation, and identity carrier without
-external input.
+characterisation in Rosen's $(M,R)$ vocabulary, where a closed system
+is described in terms of boundary regulation, repair operators,
+constraint maintenance, causal entailment, scale separation, and an
+identity carrier.
 
-We exhibit a per-$Q$ assignment in which each Rosen closure operator
-maps to a specific canonical-family member, verify each assignment
-with an exact-arithmetic probe, and conclude with a synthesis remark
-identifying the assignment with structural features already present in
-the \S\ref{sec:composition} algebra.
+We exhibit a per-$Q$ assignment in which each Rosen role maps to a
+specific canonical-family member, verify the underlying combinatorial
+witness with an exact-arithmetic probe, and conclude with a synthesis
+remark identifying the assignment with structural features already
+present in the \S\ref{sec:composition} algebra.
 
 The six probes (scripts
-\texttt{probe\_boundary\_regulation\_v1.py},
-\texttt{probe\_repair\_C\_doubling\_v1.py},
-\texttt{probe\_constraint\_floor\_v1.py},
-\texttt{probe\_causal\_entailment\_v1.py},
-\texttt{probe\_scale\_separation\_v1.py}, and
-\texttt{probe\_identity\_unique\_v1.py}, with the
-\texttt{probe\_J\_decomp\_v1.py} sharpening for scale separation) all
-run validity-gated under the canonical POOL\_A IC set; see
-Table~\ref{tab:functional-roles} for the headline assignments.
+\texttt{probe\_q48\_smallest\_doubly\_fixed\_v1.py},
+\texttt{probe\_q45\_q90\_c\_doubling\_v1.py},
+\texttt{probe\_q12\_generic\_floor\_v1.py},
+\texttt{probe\_q24\_cyc6\_composition\_v1.py},
+\texttt{probe\_q102\_q51\_sector\_strip\_v1.py}, and
+\texttt{probe\_q102\_unique\_doubly\_fixed\_v1.py}, with the
+\texttt{probe\_J\_decomp\_v1.py} sharpening for the sector-strip
+projection) all run validity-gated under the canonical POOL\_A IC
+set; see Table~\ref{tab:functional-roles} for the headline
+assignments. (The probe filenames carry the algebraic claim being
+tested; the Rosen-role label in the table is the interpretive layer
+on top.)
 
 \begin{table}[H]\small
 \centering
@@ -2128,7 +2205,7 @@ Q_{45}, Q_{51}\}$ is $\Fcls$-fixed (depth-stable per
 Proposition~\ref{prop:depth-stable}) but fails $\Ccls$-fixity by clean
 doubling. The $\Ccls$-closed members $\{Q_{48}, Q_{84}, Q_{90},
 Q_{102}\}$ are jointly $\Fcls$-and-$\Ccls$-fixed (
-\texttt{probe\_boundary\_regulation\_v1.stdout.log}).
+\texttt{probe\_q48\_smallest\_doubly\_fixed\_v1.stdout.log}).
 
 \begin{proposition}[$Q_{48}$ smallest doubly terminal]\label{prop:Q48-smallest}
 Among the canonical 6-vertex-seed family, $Q_{48}$ is the
@@ -2175,7 +2252,7 @@ $Q_{45} \to Q_{90}$ fires with $f = 0$: $|Q_{45} \cup \Ccls(Q_{45})|
 = 90 = 2 \cdot 45$. Under POOL\_REAL (every IC component purely
 real-valued Gaussian integer), the same operator collapses:
 $|Q_{45} \cup \Ccls(Q_{45})| = 45 = |Q_{45}|$, $f = 45$
-(\texttt{probe\_repair\_C\_doubling\_v1.stdout.log}).
+(\texttt{probe\_q45\_q90\_c\_doubling\_v1.stdout.log}).
 \end{proposition}
 
 The contrast is structural rather than numerical: the same operator,
@@ -2204,7 +2281,7 @@ every closure collapses to $|\Qn| = 1$.
 \end{itemize}
 \end{proposition}
 
-The probe (\texttt{probe\_constraint\_floor\_v1.stdout.log}) thus
+The probe (\texttt{probe\_q12\_generic\_floor\_v1.stdout.log}) thus
 sharpens Proposition~\ref{prop:floor-Q12}: the floor is robust against
 the $\Jconj$-degeneracy that breaks $\Ccls$-doubling, but collapses
 fully under parallel-IC degeneracy. The two degeneracy classes are
@@ -2233,7 +2310,7 @@ For $n = 3, \ldots, 10$, $|\Qn(\cyc(n))| = 4n$ holds exactly.
 For $n = 3, \ldots, 7$, $|\Qn(\Kn)| = n(3n{-}1)/2$ holds exactly.
 Slope contrast: $\cyc$ constant at $4$; $\Kn$ grows $4 \to 5.5 \to 7
 \to 8.5 \to 10$ over $n=3..7$
-(\texttt{probe\_causal\_entailment\_v1.stdout.log}).
+(\texttt{probe\_q24\_cyc6\_composition\_v1.stdout.log}).
 \end{proposition}
 
 $Q_{24} = \cyc(6)$ is the cleanest cyclic-causal anchor at the
@@ -2255,13 +2332,13 @@ Under canonical Gaussian ICs (POOL\_A), the $51$ \texttt{orig\_only}
 clusters of $Q_{102} = \Ccls\Qn(\Kn[6])$ (those reachable from the
 unconjugated IC sector alone) are projectively equivalent to the $51$
 clusters of $Q_{51}$ cluster-for-cluster
-(\texttt{probe\_scale\_separation\_v1.stdout.log}).
+(\texttt{probe\_q102\_q51\_sector\_strip\_v1.stdout.log}).
 \end{proposition}
 
 \begin{proposition}[Depth-stable $\Kn$ scale family]\label{prop:scale-depth}
 For $n \in \{5, 6, 7\}$, $|\Qn(\Kn)|$ at depths~$3, 4, 5$ all equal
 the pentagonal value $n(3n{-}1)/2$
-(\texttt{probe\_scale\_separation\_v1.stdout.log}).
+(\texttt{probe\_q102\_q51\_sector\_strip\_v1.stdout.log}).
 \end{proposition}
 
 The third witness sharpens the Hodge-Laplacian structure under the
@@ -2315,7 +2392,7 @@ reachable canonical members.
 \end{theorem}
 
 The proof is by direct tabulation
-(\texttt{probe\_identity\_unique\_v1.stdout.log}):
+(\texttt{probe\_q102\_unique\_doubly\_fixed\_v1.stdout.log}):
 each non-$Q_{102}$ member fails at least two of the five criteria,
 and $Q_{102}$ satisfies all five. The first two are shared with the
 doubly-terminal subset $\{Q_{48}, Q_{84}, Q_{90}, Q_{102}\}$
@@ -4303,6 +4380,44 @@ orbits.}
 
 \section{Discussion and Open Problems}\label{sec:discussion}
 
+\subsection{Cross-implementation validation of the rewriting kernel}
+\label{sec:disc-cross-impl}
+
+The kernel underlying every cardinality, terminality, and Galois result
+in the paper has been independently reimplemented in Haskell (see
+\S\ref{sec:intro-arity}; package \texttt{cfs-kernel} at
+\texttt{haskell/}, \cite{haskell-cfs-kernel}). The port uses no Python
+code and no shared infrastructure beyond the canonical
+Gaussian-integer initial-condition list. Three things follow.
+
+First, the structural-arity claim of \S\ref{sec:intro-arity} ---
+\emph{binary operator inside ternary-hyperedge rewriting} --- is
+machine-verifiable: it is the type signature of
+\texttt{compose :: Cochain -> Cochain -> Cochain} together with
+\texttt{type Hyperedge = (Vertex, Vertex, Vertex)}, checked by GHC
+under \texttt{-Wall} without warnings. This is Tier~1 evidence in the
+sense of \S\ref{sec:intro-tiers}.
+
+Second, the cardinalities $|Q_{24}|, |Q_{42}|, |Q_{45}|, |Q_{51}|$
+(single-side) and $|Q_{48}|, |Q_{84}|, |Q_{90}|, |Q_{102}|$
+($\Ccls$-closed) agree exactly between Python and Haskell at depth~$5$
+under the canonical IC pool. Two independent implementations producing
+identical counts on eight canonical objects rules out a class of
+implementation-localised errors that a single-implementation cross-check
+cannot.
+
+Third, the structural facts of \S\ref{sec:terminality} and
+\S\ref{sec:j-fixed} reproduce: $\Jconj$ is a total, involutive,
+fixed-point-free permutation on each $\Ccls$-closed $Q$, and the
+F-closure cardinality $|\Fcls^d Q|$ equals $|Q|$ at depths $4, 5, 6$
+for the doubly-terminal members $Q_{48}, Q_{84}, Q_{90}, Q_{102}$.
+
+The Haskell port does not cover the Hodge $L_1$ machinery (Part~2) or
+the Galois-decomposition drivers (\S\ref{sec:galois-pair}), which
+remain Python/Julia-only and are validated through their own
+exact-arithmetic gates. The cross-implementation evidence here is
+scoped to the rewriting kernel.
+
 \subsection{What the landscape characterises}\label{sec:disc-characterises}
 
 The CFS closure-quotient family is now characterised on several axes.
@@ -4511,11 +4626,31 @@ algebra to theorem-grade structural algebra.
 % =============================================================================
 \section{Reproducibility}\label{sec:reproducibility}
 
-The probe corpus is in \texttt{paper/scripts/} of the released
-artefact. All scripts use only the Python standard library (Gaussian
-integers are 2-tuples of \texttt{int}; no \texttt{numpy} or
-\texttt{sympy} dependency); they run on CPython~3.10+ and reproduce in
-seconds-to-minutes on a single CPU core.
+The paper's results have two independent reproduction paths.
+
+\emph{Python (canonical).} The probe corpus is in
+\texttt{paper/scripts/} of the released artefact. All scripts use only
+the Python standard library (Gaussian integers are 2-tuples of
+\texttt{int}; no \texttt{numpy} or \texttt{sympy} dependency); they run
+on CPython~3.10+ and reproduce in seconds-to-minutes on a single CPU
+core.
+
+\emph{Haskell (cross-implementation).} An independent reimplementation
+of the rewriting kernel lives at \texttt{haskell/}
+(\cite{haskell-cfs-kernel}). It uses only \texttt{base} and
+\texttt{containers}, with the dependency graph pinned by
+\texttt{cabal.project.freeze}. The library + test suite type-check
+under GHC~9.6.7 \texttt{-Wall} without warnings and reproduce the
+single-side and $\Ccls$-closed cardinalities ($|Q_{24}|, \dots,
+|Q_{102}|$), the $\Jconj$ fixed-point-free involution, and F-closure
+terminality on $Q_{48}, Q_{84}, Q_{90}, Q_{102}$ exactly, in under a
+minute:
+\begin{verbatim}
+cd haskell/
+cabal test --test-show-details=direct
+\end{verbatim}
+The Haskell track does not cover Part~2 (Hodge $L_1$ machinery) or the
+Galois decomposition; those remain Python/Julia-only.
 
 \begin{table}[H]\footnotesize
 \centering
@@ -4909,6 +5044,18 @@ Public repository:
 All ``\texttt{paper/scripts/}'' and ``\texttt{paper/references/}''
 references in this paper are paths inside the released bundle at
 that URL.
+
+\bibitem{haskell-cfs-kernel} A.~Green, B.~Crabtree,
+\emph{cfs-kernel: Haskell reference port of the CFS rewriting kernel},
+May 2026. Bundled with this paper at \texttt{haskell/}; see
+\cite{paper-source}. GHC~9.6.7, base + containers only;
+\texttt{cabal.project.freeze} pins the dependency graph. The library
+encodes the operator/hyperedge arity distinction at the type level
+(\texttt{compose :: Cochain -> Cochain -> Cochain} binary;
+\texttt{type Hyperedge = (Vertex, Vertex, Vertex)} ternary) and the
+test suite reproduces the canonical cardinalities, $\Jconj$
+involution, and F-closure terminality exactly against the Python
+reference.
 
 \bibitem{CFS2026} A.~Green,
 \emph{Closure Forces Structure: Rosen Closure and the Standard-Model Algebra}.
