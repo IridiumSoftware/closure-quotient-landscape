@@ -308,7 +308,10 @@ def emit_panel_tier_graph(q):
     return "\n".join(lines)
 
 def emit_panel_hyperedges(q, max_he=400):
-    """Panel (b): every hyperedge as a 3-pronged star meeting at centroid.
+    """Panel (a) graph view: every hyperedge as a 3-pronged star meeting
+    at a centroid. The three slots render symmetrically; this is how the
+    rewriting graph's gauge quotient sees the hyperedge.
+
     Subsamples evenly to at most max_he to keep TikZ within TeX memory
     limits for the larger quotients (Q102 has 2760, Q181 has 3974)."""
     pos, by_tier = tier_layout(q)
@@ -316,26 +319,85 @@ def emit_panel_hyperedges(q, max_he=400):
     lines.append("\\begin{tikzpicture}[scale=1.4]")
     if len(q.hyperedges) <= max_he:
         he = list(q.hyperedges)
-        subsampled = False
     else:
-        # Even-stride sample.
         stride = len(q.hyperedges) / max_he
         idxs = [int(i * stride) for i in range(max_he)]
         he = [q.hyperedges[i] for i in idxs]
-        subsampled = True
-    # Centroid + 3 lines per hyperedge
+    # Centroid + 3 symmetric lines per hyperedge (amber, like §1.7 panel a)
     for (c1, c2, c3) in he:
         x1, y1 = xy(pos[c1]); x2, y2 = xy(pos[c2]); x3, y3 = xy(pos[c3])
         cx = (x1+x2+x3)/3.0; cy = (y1+y2+y3)/3.0
         for (px, py) in ((x1,y1),(x2,y2),(x3,y3)):
             lines.append(f"  \\draw[gray, line width=0.08pt, opacity=0.10] "
                          f"({px:.3f},{py:.3f}) -- ({cx:.3f},{cy:.3f});")
-    # Nodes (smaller than panel a since edges are dense)
+    # Tier labels (left edge)
+    for t in (0, 1, 2):
+        if not by_tier[t]: continue
+        y_t = 1.2 - t * 1.2
+        x_label = -3.80 if q.n_cl <= 90 else -4.10 if q.n_cl <= 102 else -5.00
+        rgb = TIER_COLOR_RGB[t]
+        lines.append(f"  \\definecolor{{tlA{t}}}{{rgb}}{{{rgb_str(rgb)}}}")
+        lines.append(f"  \\node[font=\\small\\bfseries, tlA{t}] "
+                     f"at ({x_label:.2f},{y_t:.2f}) {{Tier {TIER_LABEL[t]}}};")
+    # Nodes
     for c in range(q.n_cl):
         x, y = xy(pos[c])
         rgb = cluster_color(q, c)
         lines.append(f"  \\definecolor{{hc{c}}}{{rgb}}{{{rgb_str(rgb)}}}")
         lines.append(f"  \\fill[hc{c}, draw=black, line width=0.10pt] "
+                     f"({x:.3f},{y:.3f}) circle (0.05);")
+    lines.append("\\end{tikzpicture}")
+    return "\n".join(lines)
+
+def emit_panel_ordered_slot(q, max_he=400):
+    """Panel (b) computational view: each ordered triple (v1, v2, v3)
+    drawn with explicit slot semantics — the two operator-input spokes
+    (v1, v2 -> centroid) in Wong-bluish-green, the output spoke
+    (centroid -> v3) in Wong-reddish-purple. Same data as panel (a),
+    same subsampling stride; together the two panels externalise the
+    type-level binary-op-inside-ternary-hyperedge distinction of
+    §1.7."""
+    pos, by_tier = tier_layout(q)
+    lines = []
+    lines.append("\\begin{tikzpicture}[scale=1.4]")
+    if len(q.hyperedges) <= max_he:
+        he = list(q.hyperedges)
+    else:
+        stride = len(q.hyperedges) / max_he
+        idxs = [int(i * stride) for i in range(max_he)]
+        he = [q.hyperedges[i] for i in idxs]
+    # Wong 2011 colour-blind-safe palette: bluish-green inputs, reddish-purple output.
+    lines.append("  \\definecolor{slotin}{rgb}{0.000,0.620,0.450}")
+    lines.append("  \\definecolor{slotout}{rgb}{0.800,0.470,0.650}")
+    # Two input spokes + one output spoke per ordered triple. The output
+    # is rendered slightly more opaque and dashed to read as an arrow.
+    for (c1, c2, c3) in he:
+        x1, y1 = xy(pos[c1]); x2, y2 = xy(pos[c2]); x3, y3 = xy(pos[c3])
+        cx = (x1+x2+x3)/3.0; cy = (y1+y2+y3)/3.0
+        # input slot 1
+        lines.append(f"  \\draw[slotin, line width=0.10pt, opacity=0.12] "
+                     f"({x1:.3f},{y1:.3f}) -- ({cx:.3f},{cy:.3f});")
+        # input slot 2
+        lines.append(f"  \\draw[slotin, line width=0.10pt, opacity=0.12] "
+                     f"({x2:.3f},{y2:.3f}) -- ({cx:.3f},{cy:.3f});")
+        # output slot (dashed, brighter)
+        lines.append(f"  \\draw[slotout, line width=0.14pt, opacity=0.32, dashed] "
+                     f"({cx:.3f},{cy:.3f}) -- ({x3:.3f},{y3:.3f});")
+    # Tier labels (left edge)
+    for t in (0, 1, 2):
+        if not by_tier[t]: continue
+        y_t = 1.2 - t * 1.2
+        x_label = -3.80 if q.n_cl <= 90 else -4.10 if q.n_cl <= 102 else -5.00
+        rgb = TIER_COLOR_RGB[t]
+        lines.append(f"  \\definecolor{{tlB{t}}}{{rgb}}{{{rgb_str(rgb)}}}")
+        lines.append(f"  \\node[font=\\small\\bfseries, tlB{t}] "
+                     f"at ({x_label:.2f},{y_t:.2f}) {{Tier {TIER_LABEL[t]}}};")
+    # Nodes
+    for c in range(q.n_cl):
+        x, y = xy(pos[c])
+        rgb = cluster_color(q, c)
+        lines.append(f"  \\definecolor{{oc{c}}}{{rgb}}{{{rgb_str(rgb)}}}")
+        lines.append(f"  \\fill[oc{c}, draw=black, line width=0.10pt] "
                      f"({x:.3f},{y:.3f}) circle (0.05);")
     lines.append("\\end{tikzpicture}")
     return "\n".join(lines)
@@ -401,11 +463,20 @@ def emit_panel_heatmap(q):
 
 def emit_figure(q, label_suffix, caption):
     """Emit a complete \\begin{figure} environment with three subpanels
-    stacked VERTICALLY (full-width each). The paper isn't space-pressed
-    and the side-by-side layout was overlapping at 0.32\\textwidth."""
-    panel_a = emit_panel_tier_graph(q)
-    panel_b = emit_panel_hyperedges(q)
+    stacked vertically:
+      (a) graph view (centroid-star, symmetric three-spoke);
+      (b) computational view (ordered-slot, input + output colours);
+      (c) adjacency heatmap (binary co-occurrence sorted by tier).
+    (a)+(b) mirror §1.7's layered binary-op-inside-ternary-routing
+    figure; (c) is the binary shadow, kept as a diagnostic for tier-
+    block structure."""
+    panel_a = emit_panel_hyperedges(q)
+    panel_b = emit_panel_ordered_slot(q)
     panel_c = emit_panel_heatmap(q)
+    subsample_note = (
+        f" (subsample of {q.total_he} hyperedges; even-stride)"
+        if q.total_he > 400 else f" ({q.total_he} hyperedges)"
+    )
     out = []
     out.append(f"% Auto-generated by paper/scripts/dump_quotient_to_tikz.py")
     out.append(f"% Do not hand-edit; regenerate via `python3 dump_quotient_to_tikz.py`.")
@@ -414,19 +485,19 @@ def emit_figure(q, label_suffix, caption):
     out.append(f"\\begin{{subfigure}}[t]{{\\textwidth}}")
     out.append(f"  \\centering")
     out.append(panel_a)
-    out.append(f"  \\caption{{Tier-stratified node-edge graph.}}")
+    out.append(f"  \\caption{{Graph view: centroid-star (three symmetric spokes per ternary hyperedge){subsample_note}.}}")
     out.append(f"\\end{{subfigure}}")
     out.append(f"\\par\\bigskip")
     out.append(f"\\begin{{subfigure}}[t]{{\\textwidth}}")
     out.append(f"  \\centering")
     out.append(panel_b)
-    out.append(f"  \\caption{{Hyperedge stars{' (subsample of ' + str(q.total_he) + ')' if q.total_he > 400 else ' (' + str(q.total_he) + ')'}.}}")
+    out.append(f"  \\caption{{Computational view: solid bluish-green spokes to the two operator-input slots, dashed reddish-purple arrow to the output slot.}}")
     out.append(f"\\end{{subfigure}}")
     out.append(f"\\par\\bigskip")
     out.append(f"\\begin{{subfigure}}[t]{{\\textwidth}}")
     out.append(f"  \\centering")
     out.append(panel_c)
-    out.append(f"  \\caption{{Adjacency heatmap (rows/columns sorted by tier).}}")
+    out.append(f"  \\caption{{Adjacency heatmap (rows/columns sorted by tier): the binary co-occurrence shadow of the ternary structure above; included as a tier-block-structure diagnostic.}}")
     out.append(f"\\end{{subfigure}}")
     out.append(f"\\caption{{{caption}}}")
     out.append(f"\\label{{fig:{label_suffix}}}")
