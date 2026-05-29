@@ -88,32 +88,37 @@ doubly-terminal members.
 
 ### Python probe corpus
 
-The probe corpus is in `scripts/`. All scripts use only the Python
-standard library (no `numpy`, `matplotlib`, etc.) and run on
-CPython 3.10+. Every probe runs a `K_6^3 → 51` validity gate before
-reporting measurements.
+The probe corpus is in `scripts/` (CPython 3.10+). It splits into two
+groups.
+
+**Self-contained core** — pure Python standard library, no
+`CFS_REPO_ROOT`, no external builders. These run straight from a fresh
+clone (the visualization generators and `q181_search.py` import only
+sibling modules in the same directory); every measurement probe runs a
+`K_6^3 → 51` validity gate before reporting:
 
 ```sh
 cd scripts/
 for s in *.py; do python3 "$s" || echo "FAIL: $s"; done
 ```
 
-Total runtime under five minutes on a single CPU core.
+On a fresh clone the self-contained scripts all pass. The env-gated
+group below instead prints a one-line `Set CFS_REPO_ROOT` notice and
+returns non-zero — a deliberate clean exit, which the loop above reports
+as `FAIL` only because of the exit code. Core-group runtime is under
+five minutes on a single CPU core. The figure `.tex` files in `figures/`
+are pre-generated; the visualization generators only *regenerate* them.
 
-The figure `.tex` files in `figures/` are pre-generated; the
-visualization-generator scripts in `scripts/` are only needed to
-*regenerate* them.
-
-A second group of scripts — the `probe_*_v1.py` set plus
-`q51_exact_phase_s_python.py` and `q51_exact_vs_fidelity_verification.py`
-— imports canonical exact-arithmetic builders that live in the broader
-CFS programme working tree. Set the `CFS_REPO_ROOT` environment
-variable to a checkout of
+**Env-gated** — the `probe_*_v1.py` set, `q51_exact_phase_s_python.py`,
+`q51_exact_vs_fidelity_verification.py`, and the figure regenerator
+`dump_quotient_to_tikz.py` import the canonical exact-arithmetic builders
+that live in the broader CFS programme working tree (these also use
+`numpy`). Set the `CFS_REPO_ROOT` environment variable to a checkout of
 [Closure-Forces-Structure---SM-Rosen-Hypergraphs](https://github.com/IridiumSoftware/Closure-Forces-Structure---SM-Rosen-Hypergraphs)
-before invoking them; without it they exit cleanly with a clear
-message. The captured stdout from each run is committed alongside
-the script as `*.stdout.log` so the cited evidence survives without
-re-running.
+before invoking them; without it they exit cleanly with a clear message.
+The captured stdout from each run is committed alongside the script as
+`*.stdout.log` (and the figures as `figures/*.tex`) so the cited
+evidence survives without re-running.
 
 ## Citation
 

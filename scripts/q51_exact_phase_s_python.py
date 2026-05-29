@@ -301,6 +301,13 @@ def refine_sigma_V_via_adjacency(sigma_V, unresolved, V_15, V_30, q_he, co):
     return sigma_V, still_unresolved
 
 
+# NOTE: this σ_V construction is Q_51-SPECIFIC. It recovers the S_6 action from
+# the (co-occurrence vector, V_15-neighbour) incidence signature, which is sharp
+# for Q_51's 6+15+30 orbit structure but is NOT claimed to generalise to denser
+# quotients (Q_102+), where the signature can collide. Correctness does not rest
+# on the heuristic being sharp: any wrong σ_V is caught downstream by the EXACT
+# integer commutation gate verify_commute_int (max_diff must be 0), so a
+# mis-identified lift fails loudly rather than silently producing a wrong χ.
 def build_sigma_V_full(perm, n_cl, co, q_he, V_6, V_15, V_30):
     """Build σ_V using sharp (co-vec, V_15-neighbor) invariant for V_30.
 
@@ -571,6 +578,15 @@ def main():
     assert len(V_6) == 6 and len(V_15) == 15 and len(V_30) == 30, \
         f"Orbit sizes {len(V_6)}+{len(V_15)}+{len(V_30)} ≠ 6+15+30 — check build"
 
+    # NOTE ON EXACTNESS. The float64 eigendecomposition below is a SECONDARY
+    # check: it confirms the {3∓√3} pair appears at multiplicity 30. Those
+    # eigenvalues are irrational (roots of x²−6x+6), so they cannot be exact
+    # rationals and a tolerance-based count is the appropriate test for them.
+    # The LOAD-BEARING results are exact integer arithmetic: the commutation
+    # σ_E·L₁ = L₁·σ_E (verify_commute_int → max_diff == 0) and the Frobenius
+    # decomposition (m_ρ = v // 720 with v % 720 == 0; Σ m_ρ·dim ρ == |C¹|).
+    # The per-cluster float64 decomposition further below is likewise a
+    # diagnostic, not a proof step.
     print("\nVerifying eigenvalue spectrum has {3∓√3} pair at m=30...")
     w = np.sort(np.linalg.eigvalsh(L1.astype(np.float64)))
     cnt_lo = int(np.sum(np.abs(w - (3.0 - np.sqrt(3.0))) < 1e-6))

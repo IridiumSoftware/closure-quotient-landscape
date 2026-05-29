@@ -23,30 +23,40 @@ Pure Python stdlib + closure-v5's exact-arithmetic builders. Output is
 LaTeX/TikZ, included into the paper via \\input{figures/<q>.tex}.
 
 Usage:
-  cd paper/scripts/
-  python3 dump_quotient_to_tikz.py
+  CFS_REPO_ROOT=/path/to/closure-v5  python3 dump_quotient_to_tikz.py
+
+The figures it emits (figures/<q>.tex) are committed; this script is only
+needed to *regenerate* them.
 """
 
 import os, sys, io, contextlib, math, random
 
-CV5_ROOT = os.path.normpath(
-    os.path.join(os.path.dirname(__file__), '..', '..')
-)
-sys.path.insert(0, CV5_ROOT)
+# Regeneration tool: imports closure-v5's canonical exact-arithmetic builders
+# (q102_build_exact_v1, g4_larger_graphs_exact_v1). Point CFS_REPO_ROOT at a
+# Closure-Forces-Structure checkout — the same env var the probe_*_v1 and
+# q51_exact_* scripts use — rather than the old parent-relative path, which only
+# resolved inside closure-v5's own tree and crashed with a raw ImportError in a
+# standalone clone. Without the var we exit cleanly; the committed figures/*.tex
+# need no rebuild.
+CFS_ROOT = os.environ.get("CFS_REPO_ROOT")
+if not CFS_ROOT:
+    sys.exit("Set CFS_REPO_ROOT to a Closure-Forces-Structure checkout to "
+             "regenerate figures (the committed figures/*.tex need no rebuild).")
+sys.path.insert(0, CFS_ROOT)
 
-with contextlib.redirect_stdout(sys.stderr):
-    from q102_build_exact_v1 import (
-        build_c_closed_quotient, complete_ternary,
-    )
-
-# Local: g4_larger_graphs_exact_v1 (single-side exact builder + Pool B)
-sys.path.insert(0, os.path.join(CV5_ROOT))
-with contextlib.redirect_stdout(sys.stderr):
-    from g4_larger_graphs_exact_v1 import (
-        POOL_B,
-        build_quotient_exact,
-        compose_exact, proj_equiv, is_zero_vec,
-    )
+try:
+    with contextlib.redirect_stdout(sys.stderr):
+        from q102_build_exact_v1 import (
+            build_c_closed_quotient, complete_ternary,
+        )
+        # g4_larger_graphs_exact_v1: single-side exact builder + Pool B
+        from g4_larger_graphs_exact_v1 import (
+            POOL_B,
+            build_quotient_exact,
+            compose_exact, proj_equiv, is_zero_vec,
+        )
+except ImportError as e:
+    sys.exit(f"Could not import CFS exact builders from CFS_REPO_ROOT={CFS_ROOT}: {e}")
 
 # ----------------------------------------------------------------------------
 # Seed-graph constructions (canonical, copied from closure-v5 sources)

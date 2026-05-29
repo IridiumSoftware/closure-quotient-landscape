@@ -1,0 +1,6 @@
+gate K_6^3 = 51 PASS
+trials: 192
+*** Q181 EXHIBITED — n=12 vertices, 132-edge seed (density 0.100), first hit at trial 78: closes to exactly 181 ***
+   total Q181 seeds found in sweep: 12
+   181 is prime; the smallest prime-cardinality closure object exhibited.
+   discovered seed matches q181_canonical_seed.Q181_SEED: YES
