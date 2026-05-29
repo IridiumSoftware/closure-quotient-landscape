@@ -113,12 +113,26 @@ are pre-generated; the visualization generators only *regenerate* them.
 `q51_exact_vs_fidelity_verification.py`, and the figure regenerator
 `dump_quotient_to_tikz.py` import the canonical exact-arithmetic builders
 that live in the broader CFS programme working tree (these also use
-`numpy`). Set the `CFS_REPO_ROOT` environment variable to a checkout of
+`numpy`). Those builders are published in the public CFS mirror: point
+`CFS_REPO_ROOT` at the `scripts/quotient_construction/` directory of a
 [Closure-Forces-Structure---SM-Rosen-Hypergraphs](https://github.com/IridiumSoftware/Closure-Forces-Structure---SM-Rosen-Hypergraphs)
-before invoking them; without it they exit cleanly with a clear message.
-The captured stdout from each run is committed alongside the script as
-`*.stdout.log` (and the figures as `figures/*.tex`) so the cited
-evidence survives without re-running.
+checkout pinned at commit
+[`a2c1c0c`](https://github.com/IridiumSoftware/Closure-Forces-Structure---SM-Rosen-Hypergraphs/commit/a2c1c0c2103c40f83599bb91f193bd78be12b2cd)
+— the commit that adds `q102_build_exact_v1.py` and
+`g4_larger_graphs_exact_v1.py`:
+
+```sh
+git clone https://github.com/IridiumSoftware/Closure-Forces-Structure---SM-Rosen-Hypergraphs cfs
+git -C cfs checkout a2c1c0c
+export CFS_REPO_ROOT="$PWD/cfs/scripts/quotient_construction"
+```
+
+Without `CFS_REPO_ROOT` set they exit cleanly with a clear message. The
+captured stdout from each run is committed alongside the script as
+`*.stdout.log` (and the figures as `figures/*.tex`) so the cited evidence
+survives without re-running. Verified at the pinned commit:
+`q51_exact_phase_s_python.py` reproduces the committed Galois-pair result
+(`|C¹|=315`, `{3∓√3}` at multiplicity 30, `[4,2]⊕[3,3]⊕[3,2,1]`).
 
 ## Citation
 
