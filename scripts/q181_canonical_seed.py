@@ -141,14 +141,23 @@ Q181_N_VERTS = 12
 
 if __name__ == "__main__":
     import sys, os
-    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-    sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), '..'))
+    # Honor CFS_REPO_ROOT like the other env-gated scripts (probe_*_v1,
+    # q51_exact_*): point it at the scripts/quotient_construction/ directory of
+    # a Closure-Forces-Structure checkout (see README). The Q_181 existence
+    # claim rests on the Q181_SEED literal above; this __main__ re-verifies it
+    # against the canonical exact builder.
+    CFS_ROOT = os.environ.get("CFS_REPO_ROOT")
+    if not CFS_ROOT:
+        sys.exit("Set CFS_REPO_ROOT to a Closure-Forces-Structure checkout's "
+                 "scripts/quotient_construction/ to verify (see README).")
+    sys.path.insert(0, CFS_ROOT)
     try:
         from q102_build_exact_v1 import (
             build_multiway, proj_equiv, is_zero_vec, _GEN_ICS
         )
-    except ImportError:
-        sys.exit("Set CFS_REPO_ROOT or run from closure-v5/paper/scripts.")
+    except ImportError as e:
+        sys.exit(f"Could not import q102_build_exact_v1 from "
+                 f"CFS_REPO_ROOT={CFS_ROOT}: {e}")
     ics = {i: [list(t) for t in _GEN_ICS[i]] for i in range(Q181_N_VERTS)}
     psi, _, _ = build_multiway(Q181_SEED, ics, 5)
     reps = []
